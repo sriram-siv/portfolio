@@ -12,6 +12,8 @@ function init() {
   const about = document.querySelector('.about')
   const tech = document.querySelector('.tech')
 
+  const contactLinks = document.querySelectorAll('.contact-section')
+
   let techLoaded = false
 
   const loadTitle = () => {
@@ -24,6 +26,7 @@ function init() {
 
     techLoaded = false
     Array.from(tech.children).forEach(child => child.style.opacity = 0)
+    contactLinks.forEach(child => child.style.opacity = 0)
 
     setTimeout(() => {
       monogram.style.animation = 'none'
@@ -32,7 +35,7 @@ function init() {
 
     setTimeout(() => {
       title.style.opacity = 1
-      hideSections()
+      switchSections()
     }, 200)
   }
 
@@ -57,6 +60,12 @@ function init() {
     setTimeout(() => loadTech(children, false), 100)
   }
 
+  const loadContact = () => {
+    contactLinks.forEach((link, i) => {
+      setTimeout(() => link.style.opacity = 1, 300 + (i * 150))
+    })
+  }
+
   const loadSection = (e) => {
     // Animatate navlink bounce
     e.target.style.transform = 'translateY(2px)'
@@ -66,9 +75,10 @@ function init() {
       const section = e.target.getAttribute('data-section')
       if (section === 'tech') loadTech()
       // if (section === 'about') loadAbout()
+      if (section === 'contact') loadContact()
       // Switch section visibility
       const titleShowing = title.style.opacity !== '0'
-      setTimeout(() => hideSections(section), titleShowing ? 200 : 0)
+      setTimeout(() => switchSections(section), titleShowing ? 200 : 0)
       // Hide title
       navbar.style.top = '-70px'
       title.style.opacity = 0
@@ -77,26 +87,44 @@ function init() {
 
   }
 
-  const hideSections = (exception) => {
+  const switchSections = (exception) => {
     Array.from(main.children).forEach(section => {
       const isException = section.id === exception
-      // Height changes either before or after transition depending on direction
-      // because auto -> 0 animation isn't possible
-      setTimeout(() => section.style.height = isException ? 'auto' : 0, isException ? 0 : 300)
-      section.style.opacity = isException ? 1 : 0
-      section.style.pointerEvents = isException ? 'all' : 'none'
+      // Constant behaviour
+      setTimeout(() => {
+        section.style.height = 'auto'
+        container.scrollTop = 0
+      }, 250)
+
+      if (isException) {
+        setTimeout(() => {
+          section.style.opacity = 1
+          section.style.pointerEvents = 'all'
+        }, 250)
+      } else {
+        section.style.opacity = 0
+        section.style.pointerEvents = 'none'
+      }
     })
   }
 
-  const getMousePosition = (e) => {
-    const translation = (e.clientX / window.visualViewport.width) - 0.5
+  const getMousePosition = event => {
+    const translation = (event.clientX / window.visualViewport.width) - 0.5
     monogram.style.boxShadow = `${translation * 50}px 0 500px 50px white`
+  }
+
+  const toggleLinkIndicator = event => {
+    const indicator = event.target.querySelector('.link-indicator')
+    indicator.style.opacity = getComputedStyle(indicator).opacity === '0' ? '1' : '0'
   }
 
   
   window.addEventListener('mousemove', getMousePosition)
   monogram.addEventListener('click', loadTitle)
   navItems.forEach(item => item.addEventListener('click', loadSection))
+  contactLinks.forEach(link => link.addEventListener('mouseenter', toggleLinkIndicator))
+  contactLinks.forEach(link => link.addEventListener('mouseleave', toggleLinkIndicator))
+
 
 }
 

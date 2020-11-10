@@ -5,6 +5,11 @@ body {
   font-family: 'Cutive Mono', monospace;
 }
 
+a {
+  text-decoration: none;
+  color: papayawhip;
+}
+
 .monogram {
   width: 60px;
   height: 60px;
@@ -83,10 +88,10 @@ body {
 }
 
 .container {
-  height: calc(100vh - 200px - 6rem);
+  height: calc(100vh - 150px - 6rem);
   overflow: scroll;
   position: relative;
-  top: -30px;
+  top: -50px;
   pointer-events: none;
 }
 
@@ -105,7 +110,7 @@ main {
   font-size: 4rem;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.3s ease-out;
+  transition: all 0.25s;
 
   > * {
     margin: 16px;
@@ -127,7 +132,7 @@ main {
   height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.25s;
   z-index: 2;
   pointer-events: none;
 
@@ -151,13 +156,18 @@ main {
   width: 100%;
   height: 0;
   overflow: hidden;
+  padding-left: 20px;
   pointer-events: none;
   opacity: 0;
   text-align: center;
-  transition: all 0.3s;
+  transition: all 0.25s;
 
   .contact-section {
     display: flex;
+    align-items: center;
+    margin: 20px;
+    opacity: 0;
+    transition: all 0.5s;
   }
 
   i {
@@ -165,7 +175,24 @@ main {
   }
 
   p {
+    
     width: 8rem;
+    color: papayawhip;
+  }
+
+  img {
+    width: 3.5rem;
+  }
+
+  .link-indicator {
+    position: relative;
+    opacity: 0;
+    margin-top: 2px;
+    width: 10px;
+    height: 10px;
+    background-color: lightpink;
+    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+    animation: indicator 2s infinite;
   }
 }
 
@@ -230,5 +257,14 @@ main {
   }
   100% {
     transform: translate();
+  }
+}
+
+@keyframes indicator {
+  0%, 10%, 30%, 100% {
+    left: 0;
+  }
+  20% {
+    left: 5px;
   }
 }
