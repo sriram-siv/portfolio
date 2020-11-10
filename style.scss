@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Frank+Ruhl+Libre&display=swap');
+
+body {
+  background-color: #444;
+  font-family: 'Cutive Mono', monospace;
+}
+
+.monogram {
+  width: 60px;
+  height: 60px;
+  background-color: rgb(255, 241, 225);
+  border-radius: 5px;
+  margin: 70px auto 50px;
+  font-family: 'Frank Ruhl Libre', serif;
+  box-shadow: 0 0 500px 50px white;
+  cursor: pointer;
+  line-height: 60px;
+  text-align: center;
+  color: #666;
+  
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+.watcher {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: plum;
+  margin: auto;
+}
+
+.title {
+  opacity: 1;
+  transition: all 0.4s;
+  
+  p {
+    margin: 0;
+    color: papayawhip;
+    text-align: center;
+    line-height: 1.5rem;
+  }
+}
+
+.navigation {
+  position: relative;
+  top: 30px;
+  display: flex;
+  justify-content: center;
+  transition: all 1s;
+  
+  span {
+    width: 150px;
+    text-align: center;
+  }
+  
+  p {
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+}
+
+.current-section {
+  background: linear-gradient(to bottom, transparent 80%, white 80%, white 99%, transparent 99%);
+}
+
+.navigation span p:hover {
+  color: papayawhip;
+}
+.navigation :nth-child(1) p {
+  color: lightblue;
+}
+.navigation :nth-child(2) p {
+  color: lightpink;
+}
+.navigation :nth-child(3) p {
+  color: lightgreen;
+}
+.navigation :nth-child(4) p {
+  color: plum;
+}
+
+.container {
+  height: calc(100vh - 200px - 6rem);
+  overflow: scroll;
+  position: relative;
+  top: -30px;
+  pointer-events: none;
+}
+
+main {
+  position: relative;
+  max-width: 550px;
+  margin: auto;
+}
+
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 500px;
+  margin: 15px auto;
+  font-size: 4rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease-out;
+
+  > * {
+    margin: 16px;
+    opacity: 0;
+    transition: all 1s;
+    transform: translate(0, 0);
+    perspective: 100px;
+  }
+
+  .tech-padding {
+    width: 16px;
+  }
+}
+
+.about {
+  color: papayawhip;
+  position: absolute;
+  margin-bottom: 100px;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 2;
+  pointer-events: none;
+
+  font-size: 0.95rem;
+  text-align: justify;
+  // text-shadow: 1px 1px #133;
+  line-height: 1.8rem;
+
+  &::selection {
+    background-color: plum;
+    text-shadow: 1px 1px #133;
+  }
+}
+
+// .highlight {
+//   line-height: 1.8rem;
+//   position: absolute;
+//   text-align: justify;
+//   color: transparent;
+
+//   &::selection {
+//     background-color: plum;
+//   }
+// }
+
+// .mask {
+//   font-size: 1.2rem;
+//   line-height: 1.8rem;
+//   position: relative;
+//   top: -0.8rem;
+//   text-align: justify;
+//   color: transparent;
+//   z-index: 1;
+//   pointer-events: none;
+//   margin-right: -9px;
+
+
+//   span {
+//     background: #444;
+//   }
+// }
+
+
+@media screen and (max-width: 500px) {
+  .tech-padding {
+    display: none;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  50% {
+    
+  }
+  100% {
+    transform: rotateZ(90deg);
+  }
+}
+@keyframes spin-reverse {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(-90deg);
+  }
+}
+
+@keyframes scatter {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate();
+  }
+}
