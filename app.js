@@ -9,55 +9,48 @@ function init() {
   const container = document.querySelector('.container')
   const main = document.querySelector('main')
 
-  const about = document.querySelector('.about')
-  const tech = document.querySelector('.tech')
-
+  const tech = document.querySelectorAll('.tech i')
   const contactLinks = document.querySelectorAll('.contact-section')
 
-  let techLoaded = false
+  const projectSelectors = document.querySelectorAll('.project-selector')
+
+  let currentProject = 0
+  let projectSelectorDelay = false
+
+  const fadeOrder = [
+    [0], [1], [2, 5], [3, 6, 9], [4, 7, 10], [8, 11], [12], [13]
+  ]
+
+  const resetProjects = () => {
+    changeProject(-1, false)
+    if (currentProject > 0) resetProjects()
+  }
+
 
   const loadTitle = () => {
-
+    // Animate spin and navbar scroll
     monogram.style.animation = 'spin linear 0.3s'
     monogramLetter.style.animation = 'spin-reverse linear 0.3s'
-
     navbar.style.top = '30px'
     container.style.pointerEvents = 'none'
-
-    techLoaded = false
-    Array.from(tech.children).forEach(child => child.style.opacity = 0)
-    contactLinks.forEach(child => child.style.opacity = 0)
-
+    // Remove animation and reveal title
     setTimeout(() => {
       monogram.style.animation = 'none'
       monogramLetter.style.animation = 'none'
-    }, 300)
-
-    setTimeout(() => {
       title.style.opacity = 1
-      switchSections()
-    }, 200)
+    }, 400)
+    // Hide sections and reset animations
+    setTimeout(() => switchSections(), 150)
+    tech.forEach(child => child.style.opacity = 0)
+    contactLinks.forEach(child => child.style.opacity = 0)
+
+    projectSelectors.forEach(button => button.style.opacity = 0)
   }
 
-  const loadAbout = () => {
-    setTimeout(() => {
-      
-    }, 200)
-  }
-
-  const loadTech = (children = Array.from(tech.children)) => {
-    // Only animate single elements on first load
-    if (children.length <= 0) techLoaded = true
-    if (techLoaded) return
-    // Select two random items from the tech stack array
-    const one = Math.floor(Math.random() * children.length)
-    let two = Math.floor(Math.random() * children.length)
-    while (one === two) two = Math.floor(Math.random() * children.length)
-    // Fade in and remove from array for further calls to this function
-    children[one].style.opacity = 1
-    children[two].style.opacity = 1
-    children = children.filter((item, i) => i !== one && i !== two)
-    setTimeout(() => loadTech(children, false), 100)
+  const loadTech = (order = fadeOrder) => {
+    if (order.length < 1) return
+    order[0].forEach(position => tech[position].style.opacity = 1)
+    setTimeout(() => loadTech(order.slice(1)), 120)
   }
 
   const loadContact = () => {
@@ -66,51 +59,59 @@ function init() {
     })
   }
 
-  const loadSection = (e) => {
-    // Animatate navlink bounce
-    e.target.style.transform = 'translateY(2px)'
-    setTimeout(() => {
-      e.target.style.transform = 'translateY(0)'
+  const loadProjects = () => {
+    setTimeout(() => projectSelectors.forEach(button => button.style.opacity = 1), 300)
+  }
 
-      const section = e.target.getAttribute('data-section')
+  const loadSection = async (e) => {
+    // Animatate navlink bounce
+    e.target.classList.add('bounce')
+    setTimeout(() => e.target.classList.remove('bounce'), 200)
+    
+    const section = e.target.getAttribute('data-section')
+    // Switch section visibility
+    const titleShowing = title.style.opacity !== '0'
+    setTimeout(() => switchSections(section), titleShowing ? 200 : 100)
+
+    // Hide title and activate scroll
+    title.style.opacity = 0
+    container.style.pointerEvents = 'all'
+
+    setTimeout(() => {
+      projectSelectors.forEach(button => button.style.opacity = 0)
+
       if (section === 'tech') loadTech()
       // if (section === 'about') loadAbout()
       if (section === 'contact') loadContact()
-      // Switch section visibility
-      const titleShowing = title.style.opacity !== '0'
-      setTimeout(() => switchSections(section), titleShowing ? 200 : 0)
-      // Hide title
+      if (section === 'projects') loadProjects()
+
+      
       navbar.style.top = '-70px'
-      title.style.opacity = 0
-      container.style.pointerEvents = 'all'
-    }, 100)
+    }, 150)
+
+    if (section !== 'projects') setTimeout(resetProjects, 300)
 
   }
 
   const switchSections = (exception) => {
     Array.from(main.children).forEach(section => {
+      if (section.tagName === 'BUTTON') return
       const isException = section.id === exception
       // Constant behaviour
       setTimeout(() => {
-        section.style.height = 'auto'
+        section.style.height = isException ? 'auto' : 0
+        section.style.pointerEvents = isException  ? 'all' : 'none'
         container.scrollTop = 0
       }, 250)
-
-      if (isException) {
-        setTimeout(() => {
-          section.style.opacity = 1
-          section.style.pointerEvents = 'all'
-        }, 250)
-      } else {
-        section.style.opacity = 0
-        section.style.pointerEvents = 'none'
-      }
+      // Variable delay
+      setTimeout(() => section.style.opacity = isException ? 1 : 0, isException ? 250 : 0)
     })
   }
 
-  const getMousePosition = event => {
-    const translation = (event.clientX / window.visualViewport.width) - 0.5
-    monogram.style.boxShadow = `${translation * 50}px 0 500px 50px white`
+  const trackMouseWithGlow = event => {
+    const translationX = (event.clientX / window.visualViewport.width) - 0.5
+    const translationY = event.clientY / window.visualViewport.height
+    monogram.style.boxShadow = `${translationX * 70}px ${translationY * 40}px 500px 50px white`
   }
 
   const toggleLinkIndicator = event => {
@@ -118,14 +119,60 @@ function init() {
     indicator.style.opacity = getComputedStyle(indicator).opacity === '0' ? '1' : '0'
   }
 
+  const changeProject = (direction, delay = true) => {
+    const validPress = currentProject + direction > -1 && currentProject + direction < 4
+    if (projectSelectorDelay || !validPress) return
+    if (delay) {
+      projectSelectorDelay = true
+      setTimeout(() => projectSelectorDelay = false, 500)
+    }
+
+    const projects = document.querySelectorAll('.project-show')
+    const width = parseInt(getComputedStyle(projects[0]).width) + 20
+    
+    currentProject = Math.min(Math.max(currentProject + direction, 0), 3)
+
+    projects.forEach((project, i) => {
+      const image = project.querySelector('img')
+
+      if (currentProject === i) {
+        project.style.transform = 'translateX(0)'
+        image.style.transform = 'translateX(0)'
+      }
+
+      if (currentProject < i) {
+        project.style.transform = `translateX(${width}px)`
+        image.style.transform = `translateX(${-width / 2}px)`
+      }
+
+      if (currentProject > i) {
+        project.style.transform = `translateX(${-width}px)`
+        image.style.transform = `translateX(${width / 2}px)`
+      }
+    })
+  }
   
-  window.addEventListener('mousemove', getMousePosition)
+  window.addEventListener('mousemove', trackMouseWithGlow)
   monogram.addEventListener('click', loadTitle)
   navItems.forEach(item => item.addEventListener('click', loadSection))
   contactLinks.forEach(link => link.addEventListener('mouseenter', toggleLinkIndicator))
   contactLinks.forEach(link => link.addEventListener('mouseleave', toggleLinkIndicator))
 
+  document.querySelector('.next-project').addEventListener('click', () => changeProject(1))
+  document.querySelector('.prev-project').addEventListener('click', () => changeProject(-1))
 
+
+  document.querySelectorAll('.extra-project').forEach(project => {
+    project.style.transform = `translateX(${parseInt(getComputedStyle(project).width)}px)`
+  })
+
+  window.addEventListener('keydown', (e) => {
+    const projects = document.querySelector('.projects')
+    if (getComputedStyle(projects).opacity === '0') return
+    if (e.key === 'ArrowLeft') changeProject(-1)
+    if (e.key === 'ArrowRight') changeProject(1)
+  })
+  
 }
 
 window.addEventListener('DOMContentLoaded', init)

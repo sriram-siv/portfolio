@@ -12,6 +12,14 @@ a {
   color: papayawhip;
 }
 
+p {
+  color: papayawhip;
+}
+p::selection {
+  background-color: plum;
+  text-shadow: 1px 1px #444;
+}
+
 .monogram {
   width: 60px;
   height: 60px;
@@ -55,6 +63,10 @@ a {
   display: inline-block;
   cursor: pointer;
   transition: all 0.1s;
+}
+.navigation p::selection {
+  background-color: plum;
+  text-shadow: 1px 1px #444;
 }
 
 .bounce {
@@ -146,20 +158,21 @@ main {
 .contact {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 0;
   width: 100%;
   height: 0;
   overflow: hidden;
-  padding-left: 20px;
   pointer-events: none;
   opacity: 0;
   text-align: center;
   transition: all 0.25s;
+  margin-left: 20px;
 }
 .contact .contact-section {
   display: flex;
+  justify-content: center;
   align-items: center;
   margin: 20px;
   opacity: 0;
@@ -169,7 +182,8 @@ main {
   font-size: 4rem;
 }
 .contact p {
-  width: 8rem;
+  width: 10rem;
+  margin-bottom: 0;
   color: papayawhip;
 }
 .contact img {
@@ -177,6 +191,7 @@ main {
 }
 .contact .link-indicator {
   position: relative;
+  top: 7px;
   opacity: 0;
   margin-top: 2px;
   width: 10px;
@@ -184,6 +199,10 @@ main {
   background-color: lightpink;
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
   animation: indicator 2s infinite;
+}
+.contact .plane-icon {
+  position: relative;
+  left: -5px;
 }
 
 .projects {
@@ -237,8 +256,8 @@ main {
 .next-project {
   opacity: 0;
   position: absolute;
-  top: 110px;
-  left: 8px;
+  top: 90px;
+  left: -15px;
   height: 30px;
   width: 10px;
   clip-path: polygon(100% 0%, 100% 100%, 0% 50%);
@@ -257,7 +276,7 @@ main {
 
 .next-project {
   left: unset;
-  right: 7px;
+  right: -15px;
   clip-path: polygon(0% 0%, 0% 100%, 100% 50%);
 }
 
@@ -293,7 +312,7 @@ main {
 }
 @keyframes indicator {
   0%, 10%, 30%, 100% {
-    left: 0;
+    left: 0px;
   }
   20% {
     left: 5px;
