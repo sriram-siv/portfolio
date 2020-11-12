@@ -150,9 +150,14 @@ main {
   text-align: justify;
   line-height: 1.8rem;
 }
-.about::selection {
-  background-color: plum;
-  text-shadow: 1px 1px #133;
+.about img {
+  width: 120px;
+  border-radius: 5px;
+  float: right;
+  margin-top: 25px;
+  margin-left: 20px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .contact {
@@ -182,8 +187,8 @@ main {
   font-size: 4rem;
 }
 .contact p {
-  width: 10rem;
-  margin-bottom: 0;
+  width: 12rem;
+  line-height: 1.5rem;
   color: papayawhip;
 }
 .contact img {
@@ -191,7 +196,7 @@ main {
 }
 .contact .link-indicator {
   position: relative;
-  top: 7px;
+  top: -1px;
   opacity: 0;
   margin-top: 2px;
   width: 10px;
@@ -250,6 +255,17 @@ main {
 }
 .project-tech > * {
   margin: 10px;
+}
+
+.project-links {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 1rem 0 1.5rem;
+}
+.project-links > * {
+  width: 12rem;
+  text-align: center;
 }
 
 .prev-project,
@@ -312,10 +328,10 @@ main {
 }
 @keyframes indicator {
   0%, 10%, 30%, 100% {
-    left: 0px;
+    left: -10px;
   }
   20% {
-    left: 5px;
+    left: -5px;
   }
 }
 @keyframes flip {
