@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Frank+Ruhl+Libre&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Anonymous+Pro&family=Frank+Ruhl+Libre&family=Open+Sans&display=swap');
 
 body {
   background-color: #444;
+  font-family: 'Open Sans', sans-serif;
   font-family: 'Cutive Mono', monospace;
+  font-family: 'Anonymous Pro', monospace;
   max-height: 100vh;
   overflow: hidden;
   margin-bottom: 0;
@@ -114,7 +116,7 @@ p {
 
 main {
   position: relative;
-  max-width: 550px;
+  max-width: 600px;
   margin: auto;
 }
 
@@ -145,7 +147,7 @@ main {
 .about {
   color: papayawhip;
   position: absolute;
-  margin-bottom: 100px;
+  margin-bottom: 0px;
   height: 0;
   overflow: hidden;
   opacity: 0;
@@ -250,9 +252,11 @@ main {
   }
 
   p {
-    text-align: justify;
+    text-align: center;
     color: papayawhip;
     line-height: 1.8rem;
+    position: relative;
+    top: -8px;
   }
 }
 
@@ -293,8 +297,18 @@ main {
   margin: 1rem 0 1.5rem;
 
   > * {
-    width: 12rem;
+    width: 4rem;
     text-align: center;  
+  }
+
+  img {
+    width: 3rem;
+  }
+
+  i {
+    font-size: 2.6rem;
+    position: relative;
+    top: 4px;
   }
 }
 
