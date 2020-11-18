@@ -10,6 +10,7 @@ function init() {
   const tech = document.querySelectorAll('.tech i')
   const contactLinks = document.querySelectorAll('.contact-section')
   const projectSelectors = document.querySelectorAll('.project-selector')
+
   // Carousel settings, delay prevents multiple function calls
   let currentProject = 0
   let projectSelectorDelay = false
@@ -17,6 +18,7 @@ function init() {
   const fadeOrder = [
     [0], [1], [2, 5], [3, 6, 9], [4, 7, 10], [8, 11], [12], [13]
   ]
+
   // Move carousel back to first project
   const resetProjects = () => {
     changeProject(-1, false)
@@ -90,20 +92,20 @@ function init() {
     container.style.pointerEvents = 'all'
 
     setTimeout(() => {
-      projectSelectors.forEach(button => button.style.opacity = 0)
-
+      
       if (section === 'tech') loadTech()
       // if (section === 'about') loadAbout()
       if (section === 'contact') loadContact()
       if (section === 'projects') loadProjects()
-
       
       navbar.style.top = '-110px'
       monogram.style.top = '-30px'
     }, 150)
-
-    if (section !== 'projects') setTimeout(resetProjects, 400)
-
+    
+    if (section !== 'projects') {
+      projectSelectors.forEach(button => button.style.opacity = 0)
+      setTimeout(resetProjects, 400)
+    }
   }
 
   const switchSections = (exception) => {
@@ -140,29 +142,10 @@ function init() {
       setTimeout(() => projectSelectorDelay = false, 500)
     }
 
-    const projects = document.querySelectorAll('.project-show')
-    const width = parseInt(getComputedStyle(projects[0]).width) + 20
-    
     currentProject = Math.min(Math.max(currentProject + direction, 0), 3)
-
-    projects.forEach((project, i) => {
-      const image = project.querySelector('img')
-
-      if (currentProject === i) {
-        project.style.transform = 'translateX(0)'
-        image.style.transform = 'translateX(0)'
-      }
-
-      if (currentProject < i) {
-        project.style.transform = `translateX(${width}px)`
-        image.style.transform = `translateX(${-width / 2}px)`
-      }
-
-      if (currentProject > i) {
-        project.style.transform = `translateX(${-width}px)`
-        image.style.transform = `translateX(${width / 2}px)`
-      }
-    })
+    
+    const projects = document.querySelectorAll('.project-show')
+    projects.forEach((project, i) => adjustCarousel(project, i))
 
     // Hide buttons on either end of carousel
     const prevBtn = document.querySelector('.prev-project')
@@ -170,7 +153,38 @@ function init() {
     prevBtn.style.opacity = delay && currentProject > 0 ? 1 : 0
     nextBtn.style.opacity = delay && currentProject < 3 ? 1 : 0
   }
-  
+
+  const resizeCarousel = () => {
+    document.querySelectorAll('.project-show').forEach((project, i) => {
+      project.style.transition = 'none'
+      adjustCarousel(project, i)
+      setTimeout(() => {
+        project.style.transition = 'all 1s'
+      }, 100)
+    })
+  }
+
+  const adjustCarousel = (project, i) => {
+    const initialProject = document.querySelector('.project-show')
+    const width = parseInt(getComputedStyle(initialProject).width) + 20
+    const image = project.querySelector('img')
+
+    if (currentProject === i) {
+      project.style.transform = 'translateX(0)'
+      image.style.transform = 'translateX(0)'
+    }
+
+    if (currentProject < i) {
+      project.style.transform = `translateX(${width}px)`
+      image.style.transform = `translateX(${-width / 2}px)`
+    }
+
+    if (currentProject > i) {
+      project.style.transform = `translateX(${-width}px)`
+      image.style.transform = `translateX(${width / 2}px)`
+    }
+  }
+
   window.addEventListener('mousemove', trackMouseWithGlow)
   monogram.addEventListener('click', loadTitle)
   navItems.forEach(item => item.addEventListener('click', loadSection))
@@ -180,10 +194,9 @@ function init() {
   document.querySelector('.next-project').addEventListener('click', () => changeProject(1))
   document.querySelector('.prev-project').addEventListener('click', () => changeProject(-1))
 
-
-  document.querySelectorAll('.extra-project').forEach(project => {
-    project.style.transform = `translateX(${parseInt(getComputedStyle(project).width)}px)`
-  })
+  // Position the items in carousel
+  resizeCarousel()
+  window.addEventListener('resize', resizeCarousel)
 
   window.addEventListener('keydown', (e) => {
     const projects = document.querySelector('.projects')
@@ -191,6 +204,7 @@ function init() {
     if (e.key === 'ArrowLeft') changeProject(-1)
     if (e.key === 'ArrowRight') changeProject(1)
   })
+
   
 }
 
