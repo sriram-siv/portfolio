@@ -8,6 +8,7 @@ function init() {
   const container = document.querySelector('.container')
   const main = document.querySelector('main')
   const tech = document.querySelectorAll('.tech i')
+  const about = document.querySelector('.about')
   const contactLinks = document.querySelectorAll('.contact-section')
   const projectSelectors = document.querySelectorAll('.project-selector')
 
@@ -105,6 +106,9 @@ function init() {
       projectSelectors.forEach(button => button.style.opacity = 0)
       setTimeout(resetProjects, 400)
     }
+
+    container.style.webkitMaskImage = 'none'
+    container.style.maskImage = 'none'
   }
 
   const switchSections = (exception) => {
@@ -123,6 +127,8 @@ function init() {
   }
 
   const adjustMask = (scrollTop) => {
+    const aboutVisible = getComputedStyle(about).opacity
+    if (aboutVisible === '0') return
     const marginWidth = (parseInt(getComputedStyle(container).width) - parseInt(getComputedStyle(main).width)) / 2
     const value = scrollTop > 150
       ? 'linear-gradient(transparent, black 10px)'
