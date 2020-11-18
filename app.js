@@ -66,7 +66,13 @@ function init() {
 
   const loadProjects = () => {
     const titleShowing = getComputedStyle(title).opacity !== '0'
-    setTimeout(() => projectSelectors.forEach(button => button.style.opacity = 1), titleShowing ? 700 : 200)
+    const prevBtn = document.querySelector('.prev-project')
+    const nextBtn = document.querySelector('.next-project')
+    setTimeout(() => {
+      prevBtn.style.opacity = currentProject > 0 ? 1 : 0
+      nextBtn.style.opacity = currentProject < 3 ? 1 : 0
+    }, titleShowing ? 700 : 200)
+    // setTimeout(() => projectSelectors.forEach(button => button.style.opacity = 1), titleShowing ? 700 : 200)
   }
 
   const loadSection = async (e) => {
@@ -96,7 +102,7 @@ function init() {
       monogram.style.top = '-30px'
     }, 150)
 
-    if (section !== 'projects') setTimeout(resetProjects, 300)
+    if (section !== 'projects') setTimeout(resetProjects, 400)
 
   }
 
@@ -118,7 +124,7 @@ function init() {
   const trackMouseWithGlow = event => {
     const translationX = (event.clientX / window.visualViewport.width) - 0.5
     const translationY = event.clientY / window.visualViewport.height
-    monogram.style.boxShadow = `${translationX * 100}px ${translationY * 40}px 500px 50px white`
+    monogram.style.boxShadow = `${translationX * 100}px ${translationY * 40}px 500px 50px #efefef`
   }
 
   const toggleLinkIndicator = event => {
@@ -157,6 +163,12 @@ function init() {
         image.style.transform = `translateX(${width / 2}px)`
       }
     })
+
+    // Hide buttons on either end of carousel
+    const prevBtn = document.querySelector('.prev-project')
+    const nextBtn = document.querySelector('.next-project')
+    prevBtn.style.opacity = delay && currentProject > 0 ? 1 : 0
+    nextBtn.style.opacity = delay && currentProject < 3 ? 1 : 0
   }
   
   window.addEventListener('mousemove', trackMouseWithGlow)
