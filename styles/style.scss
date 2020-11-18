@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Anonymous+Pro&family=Frank+Ruhl+Libre&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre&family=Montserrat:wght@300&display=swap');
 
 body {
   background-color: #444;
-  font-family: 'Open Sans', sans-serif;
-  font-family: 'Cutive Mono', monospace;
-  font-family: 'Anonymous Pro', monospace;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
   max-height: 100vh;
   overflow: hidden;
   margin-bottom: 0;
@@ -12,11 +11,11 @@ body {
 
 a {
   text-decoration: none;
-  color: papayawhip;
 }
 
 p {
   color: papayawhip;
+  text-shadow: 1px 1px #333;
   &::selection {
     background-color: plum;
     text-shadow: 1px 1px #444;
@@ -24,32 +23,39 @@ p {
 }
 
 .monogram {
+  position: relative;
+  top: 0;
   width: 60px;
   height: 60px;
-  background-color: rgb(255, 241, 225);
-  border-radius: 5px;
   margin: 70px auto 50px;
-  font-family: 'Frank Ruhl Libre', serif;
+  background-color: rgb(255, 241, 225);
+  border-radius: 4px;
   box-shadow: 0 0 500px 50px white;
-  cursor: pointer;
+  color: #666;
+  font-family: 'Frank Ruhl Libre', serif;
   line-height: 60px;
   text-align: center;
-  color: #666;
+  cursor: pointer;
+  transition: all 0.75s;
   
   h1 {
     font-size: 3rem;
+
+    &::selection {
+      background-color: none;
+    }
   }
 }
 
 .title {
   opacity: 1;
-  transition: all 0.4s;
+  transition: all 0.65s;
   
   p {
     margin: 0;
     color: papayawhip;
     text-align: center;
-    line-height: 1.5rem;
+    line-height: 2rem;
   }
 }
 
@@ -58,36 +64,21 @@ p {
   top: 30px;
   display: flex;
   justify-content: center;
-  transition: all 1s;
+  z-index: 10;
+  transition: all 1s ease-in-out;
   
   span {
-    width: 150px;
+    width: 10rem;
     text-align: center;
   }
   
   p {
-    display: inline-block;
     cursor: pointer;
-    transition: all 0.1s;
-    
-
-    &::selection {
-      background-color: plum;
-      text-shadow: 1px 1px #444;
-    }
   }
 }
 
-.bounce {
-  animation: bounce 0.2s;
-}
-
-.current-section {
-  background: linear-gradient(to bottom, transparent 80%, white 80%, white 99%, transparent 99%);
-}
-
 .navigation span p:hover {
-  color: papayawhip;
+  color: rgb(255, 241, 225);
 }
 .navigation :nth-child(1) p {
   color: lightblue;
@@ -103,11 +94,11 @@ p {
 }
 
 .container {
-  height: calc(100vh - 160px - 6rem);
+  height: calc(100vh - 130px - 6rem);
   overflow-y: scroll;
   overflow-x: hidden;
   position: relative;
-  top: -50px;
+  top: -90px;
   pointer-events: none;
   padding: 0 15px;
   scroll-behavior: smooth;
@@ -121,22 +112,22 @@ main {
 }
 
 .tech {
+  position: relative;
+  top: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 500px;
-  margin: 15px auto;
+  margin: 0 auto;
   font-size: 4rem;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.25s;
+  transition: all 0.25s ease-in;
 
   > * {
     margin: 16px;
     opacity: 0;
     transition: all 1s ease-in;
-    transform: translate(0, 0);
-    perspective: 100px;
   }
 
   .tech-padding {
@@ -145,48 +136,46 @@ main {
 }
 
 .about {
-  color: papayawhip;
-  position: absolute;
   margin-bottom: 0px;
   height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: opacity 0.25s;
+  transition: opacity 0.25s ease-in;
   z-index: 2;
   pointer-events: none;
-
-  font-size: 1rem;
+  
+  color: papayawhip;
   text-align: justify;
-  // text-shadow: 1px 1px #133;
   line-height: 1.8rem;
 
-  img {
-    width: 120px;
-    border-radius: 5px;
-    float: right;
-    margin-top: 25px;
-    margin-left: 20px;
-    margin-right: 5px;
-    margin-bottom: 5px;
+  p {
+    text-indent: 20px;
+    margin: 10px;
   }
 
-
+  img {
+    width: 130px;
+    border-radius: 4px;
+    float: right;
+    margin-top: 17px;
+    margin-left: 25px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
 }
 
 .contact {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: absolute;
-  top: 0;
   width: 100%;
   height: 0;
   overflow: hidden;
   pointer-events: none;
   opacity: 0;
   text-align: center;
-  transition: all 0.25s;
-  margin-left: 20px;
+  transition: all 0.25s ease-in;
+  margin-left: 40px;
 
   .contact-section {
     display: flex;
@@ -203,48 +192,32 @@ main {
 
   p {
     width: 12rem;
-    line-height: 1.5rem;
-    color: papayawhip;
   }
 
   img {
     width: 3.5rem;
+    padding: 0.25rem;
   }
 
   .link-indicator {
     position: relative;
-    top: -1px;
-    opacity: 0;
-    margin-top: 2px;
+    top: 1px;
     width: 10px;
     height: 10px;
+    opacity: 0;
     background-color: lightpink;
     clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
     animation: indicator 2s infinite;
   }
-
-  // .email {
-  //   position: relative;
-  //   // left: -70px;
-  //   // top: 5px;
-  //   top: -20px;
-  //   left: -50px;
-  // }
-
-  .plane-icon {
-    position: relative;
-    left: -5px;
-  }
 }
 
 .projects {
-  position: absolute;
-  top: 0;
+  position: relative;
   height: 0;
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.25s;
+  transition: all 0.25s ease-in;
 
   img {
     width: 100%;
@@ -252,28 +225,22 @@ main {
   }
 
   p {
-    text-align: center;
-    color: papayawhip;
-    line-height: 1.8rem;
     position: relative;
     top: -8px;
+    text-align: center;
+    line-height: 1.8rem;
   }
 }
 
 .project-show {
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   transition: all 1s;
 }
 
 .extra-project {
   position: absolute;
   top: 0;
-}
-
-.project-tech-header {
-  display: block;
-  text-align: center;
 }
 
 .project-tech {
@@ -287,14 +254,13 @@ main {
   > * {
     margin: 10px;
   }
-
 }
 
 .project-links {
   display: flex;
   width: 100%;
   justify-content: center;
-  margin: 1rem 0 1.5rem;
+  margin: 1rem 0;
 
   > * {
     width: 4rem;
@@ -323,7 +289,7 @@ main {
   clip-path: polygon(100% 0%, 100% 100%, 0% 50%);
   border: none;
   background-color: papayawhip;
-  transition: all 0.2s;
+  transition: all 0.5s;
 
   &:focus {
     outline: none;
@@ -338,6 +304,12 @@ main {
   clip-path: polygon(0% 0%, 0% 100%, 100% 50%);
 }
 
+.plane-icon {
+  &::selection {
+    background-color: none;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 5px;
   height: 10px;
@@ -348,8 +320,7 @@ main {
 }
 
 
-
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 530px) {
   .tech-padding {
     display: none;
   }
@@ -381,15 +352,6 @@ main {
   }
   20% {
     left: -5px;
-  }
-}
-
-@keyframes flip {
-  0% {
-    transform: rotateY(0);
-  }
-  100% {
-    transform: rotateY(180deg);
   }
 }
 

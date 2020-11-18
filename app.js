@@ -5,45 +5,50 @@ function init() {
   const title = document.querySelector('.title')
   const navbar = document.querySelector('.navigation')
   const navItems = document.querySelectorAll('.navigation span p')
-
   const container = document.querySelector('.container')
   const main = document.querySelector('main')
-
   const tech = document.querySelectorAll('.tech i')
   const contactLinks = document.querySelectorAll('.contact-section')
-
   const projectSelectors = document.querySelectorAll('.project-selector')
-
+  // Carousel settings, delay prevents multiple function calls
   let currentProject = 0
   let projectSelectorDelay = false
-
+  // Tech logos fade settings
   const fadeOrder = [
     [0], [1], [2, 5], [3, 6, 9], [4, 7, 10], [8, 11], [12], [13]
   ]
-
+  // Move carousel back to first project
   const resetProjects = () => {
     changeProject(-1, false)
     if (currentProject > 0) resetProjects()
   }
 
-
   const loadTitle = () => {
     // Animate spin and navbar scroll
-    monogram.style.animation = 'spin linear 0.3s'
-    monogramLetter.style.animation = 'spin-reverse linear 0.3s'
+    monogram.style.animation = 'spin ease 0.25s'
+    monogramLetter.style.animation = 'spin-reverse ease 0.25s'
     navbar.style.top = '30px'
     container.style.pointerEvents = 'none'
-    // Remove animation and reveal title
+    
+    // Hide sections and reset animations 0.1s
     setTimeout(() => {
-      monogram.style.animation = 'none'
-      monogramLetter.style.animation = 'none'
-      title.style.opacity = 1
-    }, 400)
-    // Hide sections and reset animations
-    setTimeout(() => switchSections(), 150)
+      switchSections()
+
+      // Remove animation and move monogram 0.4s
+      setTimeout(() => {
+        monogram.style.top = 0
+        monogram.style.animation = 'none'
+        monogramLetter.style.animation = 'none'
+
+        // Reveal title 0.6s
+        setTimeout(() => {
+          title.style.opacity = 1
+        }, 200)
+      }, 300)
+    }, 100)
+
     tech.forEach(child => child.style.opacity = 0)
     contactLinks.forEach(child => child.style.opacity = 0)
-
     projectSelectors.forEach(button => button.style.opacity = 0)
   }
 
@@ -60,18 +65,19 @@ function init() {
   }
 
   const loadProjects = () => {
-    setTimeout(() => projectSelectors.forEach(button => button.style.opacity = 1), 300)
+    const titleShowing = getComputedStyle(title).opacity !== '0'
+    setTimeout(() => projectSelectors.forEach(button => button.style.opacity = 1), titleShowing ? 700 : 200)
   }
 
   const loadSection = async (e) => {
     // Animatate navlink bounce
-    e.target.classList.add('bounce')
-    setTimeout(() => e.target.classList.remove('bounce'), 200)
+    e.target.style.animation = 'bounce 0.2s'
+    setTimeout(() => e.target.style.animation = 'none', 200)
     
     const section = e.target.getAttribute('data-section')
     // Switch section visibility
     const titleShowing = title.style.opacity !== '0'
-    setTimeout(() => switchSections(section), titleShowing ? 200 : 100)
+    setTimeout(() => switchSections(section), titleShowing ? 500 : 100)
 
     // Hide title and activate scroll
     title.style.opacity = 0
@@ -86,7 +92,8 @@ function init() {
       if (section === 'projects') loadProjects()
 
       
-      navbar.style.top = '-70px'
+      navbar.style.top = '-110px'
+      monogram.style.top = '-30px'
     }, 150)
 
     if (section !== 'projects') setTimeout(resetProjects, 300)
@@ -111,7 +118,7 @@ function init() {
   const trackMouseWithGlow = event => {
     const translationX = (event.clientX / window.visualViewport.width) - 0.5
     const translationY = event.clientY / window.visualViewport.height
-    monogram.style.boxShadow = `${translationX * 70}px ${translationY * 40}px 500px 50px white`
+    monogram.style.boxShadow = `${translationX * 100}px ${translationY * 40}px 500px 50px white`
   }
 
   const toggleLinkIndicator = event => {
