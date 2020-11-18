@@ -94,7 +94,6 @@ function init() {
     setTimeout(() => {
       
       if (section === 'tech') loadTech()
-      // if (section === 'about') loadAbout()
       if (section === 'contact') loadContact()
       if (section === 'projects') loadProjects()
       
@@ -115,12 +114,22 @@ function init() {
       // Constant behaviour
       setTimeout(() => {
         section.style.height = isException ? 'auto' : 0
-        section.style.pointerEvents = isException  ? 'all' : 'none'
+        section.style.pointerEvents = isException ? 'all' : 'none'
         container.scrollTop = 0
       }, 250)
       // Variable delay
       setTimeout(() => section.style.opacity = isException ? 1 : 0, isException ? 250 : 0)
     })
+  }
+
+  const adjustMask = (scrollTop) => {
+    const marginWidth = (parseInt(getComputedStyle(container).width) - parseInt(getComputedStyle(main).width)) / 2
+    const value = scrollTop > 150
+      ? 'linear-gradient(transparent, black 10px)'
+      : `linear-gradient(transparent, black 10px), linear-gradient(-90deg, black ${marginWidth + 160}px, transparent ${marginWidth + 160}px)`
+
+    container.style.webkitMaskImage = value
+    container.style.maskImage = value
   }
 
   const trackMouseWithGlow = event => {
@@ -196,7 +205,10 @@ function init() {
 
   // Position the items in carousel
   resizeCarousel()
-  window.addEventListener('resize', resizeCarousel)
+  window.addEventListener('resize', () => {
+    resizeCarousel()
+    adjustMask(container.scrollTop)
+  })
 
   window.addEventListener('keydown', (e) => {
     const projects = document.querySelector('.projects')
@@ -205,7 +217,7 @@ function init() {
     if (e.key === 'ArrowRight') changeProject(1)
   })
 
-  
+  container.addEventListener('scroll', (e) => adjustMask(e.target.scrollTop))
 }
 
 window.addEventListener('DOMContentLoaded', init)

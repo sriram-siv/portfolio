@@ -107,6 +107,15 @@ p {
   scroll-behavior: smooth;
 }
 
+.fade-scroll {
+  -webkit-mask-image: 
+    linear-gradient(transparent, black 10px),
+    linear-gradient(-90deg, black 400px, transparent 400px);
+  mask-image: 
+    linear-gradient(transparent, black 10px),
+    linear-gradient(-90deg, black 400px, transparent 400px);
+}
+
 
 main {
   position: relative;
@@ -139,6 +148,7 @@ main {
 }
 
 .about {
+  position: relative;
   margin-bottom: 0px;
   height: 0;
   overflow: hidden;
