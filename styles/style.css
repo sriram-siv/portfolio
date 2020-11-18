@@ -35,7 +35,7 @@ p::selection {
   line-height: 60px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.75s;
+  transition: top 0.75s;
 }
 .monogram h1 {
   font-size: 3rem;
