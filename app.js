@@ -206,14 +206,18 @@ function init() {
   }
 
   let swipeX
+  let swipeY
 
   const beginSwipe = event => {
     swipeX = event.touches[0].clientX
+    swipeY = event.touches[0].clientY
   }
 
   const endSwipe = event => {
-    if (event.changedTouches[0].clientX > swipeX + 30) changeProject(-1)
-    if (event.changedTouches[0].clientX < swipeX - 30) changeProject(1)
+    const diffX = event.changedTouches[0].clientX - swipeX
+    const diffY = event.changedTouches[0].clientY - swipeY
+    if (diffX > 30 && Math.abs(diffY) < 30) changeProject(-1)
+    if (diffX < -30 && Math.abs(diffY) < 30) changeProject(1)
   }
 
   window.addEventListener('mousemove', trackMouseWithGlow)
