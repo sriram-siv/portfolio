@@ -227,6 +227,9 @@ main {
   overflow: hidden;
   transition: all 1s;
 }
+.project-show p {
+  margin-top: 30px;
+}
 
 .extra-project {
   position: absolute;
@@ -249,10 +252,10 @@ main {
   display: flex;
   width: 100%;
   justify-content: center;
-  margin: 1rem 0;
+  margin: 25px 0 15px;
 }
 .project-links > * {
-  width: 4rem;
+  width: 5rem;
   text-align: center;
 }
 .project-links img {
