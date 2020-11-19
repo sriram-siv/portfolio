@@ -30,7 +30,7 @@ p::selection {
   margin: 70px auto 50px;
   background-color: #fff1e1;
   border-radius: 4px;
-  box-shadow: 0 0 500px 50px #aaa;
+  box-shadow: 0 0 500px 50px #888;
   color: #666;
   cursor: pointer;
   transition: top 0.75s;

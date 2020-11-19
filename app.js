@@ -143,7 +143,7 @@ function init() {
   const trackMouseWithGlow = event => {
     const translationX = (event.clientX / window.visualViewport.width) - 0.5
     const translationY = event.clientY / window.visualViewport.height
-    monogram.style.boxShadow = `${translationX * 100}px ${translationY * 40}px 500px 50px #aaa`
+    monogram.style.boxShadow = `${translationX * 100}px ${translationY * 40}px 500px 50px #888`
   }
 
   const toggleLinkIndicator = event => {
