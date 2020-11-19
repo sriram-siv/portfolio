@@ -271,27 +271,36 @@ main {
 .next-project {
   opacity: 0;
   position: absolute;
-  top: 90px;
-  left: -15px;
-  height: 30px;
-  width: 10px;
-  clip-path: polygon(100% 0%, 100% 100%, 0% 50%);
+  top: 264px;
+  left: 5px;
+  height: 50px;
+  width: 50px;
   border: none;
+  background-color: transparent;
+}
+.prev-project div,
+.next-project div {
+  height: 30px;
+  width: 12px;
   background-color: papayawhip;
+  clip-path: polygon(100% 0%, 100% 100%, 0% 50%);
   transition: all 0.5s;
+  margin: auto;
 }
 .prev-project:focus,
 .next-project:focus {
   outline: none;
 }
-.prev-project:hover,
-.next-project:hover {
+.prev-project:hover div,
+.next-project:hover div {
   background-color: plum;
 }
 
 .next-project {
   left: unset;
-  right: -15px;
+  right: 5px;
+}
+.next-project div {
   clip-path: polygon(0% 0%, 0% 100%, 100% 50%);
 }
 
