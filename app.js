@@ -120,6 +120,8 @@ function init() {
         section.style.height = isException ? 'auto' : 0
         section.style.pointerEvents = isException ? 'all' : 'none'
         container.scrollTop = 0
+        // This prevents non-visible sections from affecting the scroll container height
+        section.style.position = isException ? 'relative' : 'absolute'
       }, 250)
       // Variable delay
       setTimeout(() => section.style.opacity = isException ? 1 : 0, isException ? 250 : 0)

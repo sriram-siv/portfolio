@@ -68,6 +68,7 @@ p::selection {
 }
 .navigation span {
   width: 10rem;
+  margin: 0;
   text-align: center;
 }
 .navigation p {
@@ -103,11 +104,6 @@ p::selection {
   pointer-events: none;
   padding: 0 15px;
   scroll-behavior: smooth;
-}
-
-.fade-scroll {
-  -webkit-mask-image: linear-gradient(transparent, black 10px), linear-gradient(-90deg, black 400px, transparent 400px);
-  mask-image: linear-gradient(transparent, black 10px), linear-gradient(-90deg, black 400px, transparent 400px);
 }
 
 main {
@@ -312,6 +308,15 @@ main {
 @media screen and (max-width: 530px) {
   .tech-padding {
     display: none;
+  }
+}
+@media screen and (max-width: 480px) {
+  .navigation {
+    flex-wrap: wrap;
+  }
+  .navigation span {
+    width: fit-content;
+    margin: auto 7px;
   }
 }
 @keyframes spin {
