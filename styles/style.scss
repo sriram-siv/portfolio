@@ -252,7 +252,7 @@ main {
   transition: all 1s;
 
   p {
-    margin-top: 30px;
+    margin-top: 20px;
   }
 }
 
@@ -296,11 +296,32 @@ main {
   }
 }
 
+.carousel-header {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  top: 100px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+.header-space {
+  height: 80px;
+}
+
+.project-title {
+  display: inline-block;
+  font-size: 1.1rem;
+  padding-bottom: 10px;
+}
+
 .prev-project,
 .next-project {
   opacity: 0;
   position: absolute;
-  top: 264px;
+  top: 25px;
   left: 5px;
   height: 50px;
   width: 50px;

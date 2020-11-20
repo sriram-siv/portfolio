@@ -12,10 +12,19 @@ function init() {
   const contactLinks = document.querySelectorAll('.contact-section')
   const projectSelectors = document.querySelectorAll('.project-selector')
   const projects = document.querySelectorAll('.project-show')
+  const carouselHeader = document.querySelector('.carousel-header')
 
   // Carousel settings, delay prevents multiple function calls
   let currentProject = 0
   let projectSelectorDelay = false
+
+  const linkRefs = [
+    ['https://volunteershub.herokuapp.com/', 'https://github.com/sriram-siv/ga-project-4-volunteerhub'],
+    ['https://pop-quest.herokuapp.com/', 'https://github.com/sriram-siv/ga-project-3-popquest'],
+    ['https://sriram-siv.github.io/ga-project-1-tetris/', 'https://github.com/sriram-siv/ga-project-1-tetris'],
+    ['https://news-feed-sriri.netlify.app/', 'https://github.com/sriram-siv/ga-project-2-newsfeed']
+  ]
+
   // Tech logos fade settings
   const fadeOrder = [
     [0], [1], [2, 5], [3, 6, 9], [4, 7, 10], [8, 11], [12], [13]
@@ -75,9 +84,12 @@ function init() {
     setTimeout(() => {
       prevBtn.style.opacity = currentProject > 0 ? 1 : 0
       nextBtn.style.opacity = currentProject < 3 ? 1 : 0
+      carouselHeader.style.opacity = 1
+      carouselHeader.style.pointerEvents = 'all'
     }, titleShowing ? 700 : 200)
     resizeCarousel()
-    // setTimeout(() => projectSelectors.forEach(button => button.style.opacity = 1), titleShowing ? 700 : 200)
+    
+
   }
 
   const loadSection = e => {
@@ -106,6 +118,8 @@ function init() {
     
     if (section !== 'projects') {
       projectSelectors.forEach(button => button.style.opacity = 0)
+      carouselHeader.style.opacity = 0
+      carouselHeader.style.pointerEvents = 'none'
       setTimeout(resetProjects, 400)
     }
 
@@ -115,7 +129,7 @@ function init() {
 
   const switchSections = (exception) => {
     Array.from(main.children).forEach(section => {
-      if (section.tagName === 'BUTTON') return
+      if (section.tagName !== 'SECTION') return
       const isException = section.id === exception
       // Constant behaviour
       setTimeout(() => {
@@ -171,6 +185,9 @@ function init() {
     const nextBtn = document.querySelector('.next-project')
     prevBtn.style.opacity = delay && currentProject > 0 ? 1 : 0
     nextBtn.style.opacity = delay && currentProject < 3 ? 1 : 0
+
+    document.querySelector('.app-link').setAttribute('href', linkRefs[currentProject][0])
+    document.querySelector('.repo-link').setAttribute('href', linkRefs[currentProject][1])
   }
 
   const resizeCarousel = () => {
@@ -181,8 +198,8 @@ function init() {
         project.style.transition = 'all 1s'
       }, 100)
     })
-    const links = document.querySelector('.project-links')
-    projectSelectors.forEach(button => button.style.top = links.offsetTop + 'px')
+    const headerSpace = document.querySelector('.header-space')
+    carouselHeader.style.top = headerSpace.offsetTop + 'px'
   }
 
   const adjustCarousel = (project, i) => {
