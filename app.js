@@ -80,7 +80,7 @@ function init() {
     // setTimeout(() => projectSelectors.forEach(button => button.style.opacity = 1), titleShowing ? 700 : 200)
   }
 
-  const loadSection = async (e) => {
+  const loadSection = e => {
     // Animatate navlink bounce
     e.target.style.animation = 'bounce 0.2s'
     setTimeout(() => e.target.style.animation = 'none', 200)
@@ -143,6 +143,7 @@ function init() {
   }
 
   const trackMouseWithGlow = event => {
+    if (event.sourceCapabilities.firesTouchEvents) return
     const translationX = (event.clientX / window.visualViewport.width) - 0.5
     const translationY = event.clientY / window.visualViewport.height
     monogram.style.boxShadow = `${translationX * 100}px ${translationY * 40}px 500px 50px #888`
