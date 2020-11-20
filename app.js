@@ -7,7 +7,7 @@ function init() {
   const navItems = document.querySelectorAll('.navigation span p')
   const container = document.querySelector('.container')
   const main = document.querySelector('main')
-  const tech = document.querySelectorAll('.tech i')
+  const tech = document.querySelectorAll('.tech .tech-icon')
   const about = document.querySelector('.about')
   const contactLinks = document.querySelectorAll('.contact-section')
   const projectSelectors = document.querySelectorAll('.project-selector')
@@ -63,6 +63,8 @@ function init() {
     tech.forEach(child => child.style.opacity = 0)
     contactLinks.forEach(child => child.style.opacity = 0)
     projectSelectors.forEach(button => button.style.opacity = 0)
+    carouselHeader.style.opacity = 0
+    carouselHeader.style.pointerEvents = 'none'
   }
 
   const loadTech = (order = fadeOrder) => {
@@ -266,7 +268,10 @@ function init() {
   document.querySelector('.projects').addEventListener('touchstart', beginSwipe)
   document.querySelector('.projects').addEventListener('touchend', endSwipe)
 
-
+  document.querySelectorAll('.tech-icon').forEach(icon => {
+    const image = icon.querySelector('i')
+    icon.querySelector('p').style.color = getComputedStyle(image).color
+  })
 
   
 }
