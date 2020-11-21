@@ -7,6 +7,8 @@ body {
   max-height: 100vh;
   overflow: hidden;
   margin-bottom: 0;
+  scrollbar-color: #666 transparent;
+  scrollbar-width: 5px;
 }
 
 a {
@@ -22,21 +24,38 @@ p::selection {
   text-shadow: 1px 1px #444;
 }
 
+header {
+  padding-top: 70px;
+}
+
 .monogram {
   position: relative;
   top: 0;
   width: 60px;
   height: 60px;
-  margin: 70px auto 50px;
+  margin: 0 auto 50px;
   background-color: #fff1e1;
   border-radius: 4px;
+  border: 3px solid transparent;
   box-shadow: 0 0 500px 50px #888;
   color: #666;
   cursor: pointer;
   transition: top 0.75s;
   transition: box-shadow 0.1 s;
 }
+.monogram:focus {
+  outline: solid transparent;
+}
+.monogram:focus-visible {
+  border-color: blue;
+}
+.monogram:-moz-focusring {
+  border-color: blue;
+}
 .monogram h1 {
+  display: inline-block;
+  width: 60px;
+  margin: 0;
   font-family: "Cormorant", serif;
   font-weight: 500;
   font-size: 3rem;
@@ -74,6 +93,17 @@ p::selection {
 .navigation p {
   cursor: pointer;
 }
+.navigation p:focus {
+  outline: solid transparent;
+}
+.navigation p:focus-visible {
+  outline: 2px solid blue;
+  background-color: #777;
+}
+.navigation p:-moz-focusring {
+  outline: 2px solid blue;
+  background-color: #777;
+}
 
 .navigation span p:hover {
   color: #fff1e1;
@@ -110,6 +140,22 @@ main {
   position: relative;
   max-width: 600px;
   margin: auto;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 10px;
+  color: #888;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+footer a {
+  color: lightblue;
 }
 
 .tech {
@@ -178,7 +224,6 @@ main {
   opacity: 0;
   text-align: center;
   transition: all 0.25s ease-in;
-  margin-left: 40px;
 }
 .contact .contact-section {
   display: flex;
@@ -186,7 +231,10 @@ main {
   align-items: center;
   margin: 20px;
   opacity: 0;
-  transition: all 0.5s;
+  transition: opacity 0.5s;
+  padding-left: 80px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .contact i {
   font-size: 4rem;
@@ -207,6 +255,13 @@ main {
   background-color: lightpink;
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
   animation: indicator 2s infinite;
+}
+.contact a:focus {
+  outline: solid transparent;
+}
+.contact a:focus-visible > div {
+  outline: 2px solid blue;
+  background-color: #666a;
 }
 
 .projects {

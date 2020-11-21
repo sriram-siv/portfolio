@@ -12,7 +12,7 @@
 </head>
 <body>
   <header>
-    <div class="monogram">
+    <div class="monogram" tabindex="0">
       <h1>S</h1>
     </div>
     <div class="title">
@@ -20,10 +20,10 @@
       <p>Web Developer</p>
     </div>
     <div class="navigation">
-      <span><p data-section="about">About</p></span>
-      <span><p data-section="tech">Technologies</p></span>
-      <span><p data-section="projects">Projects</p></span>
-      <span><p data-section="contact">Contact</p></span>
+      <span><p class="nav-link" data-section="about" tabindex="0">About</p></span>
+      <span><p class="nav-link" data-section="tech" tabindex="0">Technologies</p></span>
+      <span><p class="nav-link" data-section="projects" tabindex="0">Projects</p></span>
+      <span><p class="nav-link" data-section="contact" tabindex="0">Contact</p></span>
     </div>
   </header>
   <div class="container">
@@ -107,21 +107,21 @@
       </section>
 
       <section id="contact" class="contact">
-        <a href="http://linkedin.com/in/sriram-sivarajah" target="_blank">
+        <a href="http://linkedin.com/in/sriram-sivarajah" target="_blank" tabindex="-1">
           <div class="contact-section">
             <i class="devicon-linkedin-plain colored"></i>
             <p>LinkedIn</p>
             <div class="link-indicator"></div>
           </div>
         </a>
-        <a href="http://github.com/sriram-siv" target="_blank">
+        <a href="http://github.com/sriram-siv" target="_blank" tabindex="-1">
           <div class="contact-section">
             <i class="devicon-github-plain" style="color: white"></i>
             <p>GitHub</p>
             <div class="link-indicator"></div>
           </div>
         </a>
-        <a href="mailto:sriramsivarajah@gmail.com" target="_blank">
+        <a href="mailto:sriramsivarajah@gmail.com" target="_blank" tabindex="-1">
           <div class="contact-section">
             <img src="./images/send.svg" alt="paper-plane" class="plane-icon">
             <p>Email</p>
@@ -230,10 +230,10 @@
       </section>
       <div class="carousel-header">
         <div class="project-links">
-          <a class="app-link" href="https://volunteershub.herokuapp.com/" target="_blank">
+          <a class="app-link" href="https://volunteershub.herokuapp.com/" target="_blank" tabindex="-1">
             <img src="./images/external-link.svg" alt="External Link">
           </a>
-          <a class="repo-link" href="https://github.com/sriram-siv/ga-project-4-volunteerhub" target="_blank">
+          <a class="repo-link" href="https://github.com/sriram-siv/ga-project-4-volunteerhub" target="_blank" tabindex="-1">
             <i class="devicon-github-plain" style="color: white"></i>
           </a>
         </div>
@@ -245,8 +245,11 @@
         </button>
       </div>
     </main>
-
   </div>
-  <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
+    <footer>
+      Designed using HTML, CSS & JavaScript
+      <br/>
+      with icons from <a href="https://devicon.dev/" target="_blank">DevIcons</a> & <a href="https://www.flaticon.com/authors/smashicons" target="_blank">SmashIcons</a>
+    </footer>
 </body>
 </html>

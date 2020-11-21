@@ -8,6 +8,9 @@ body {
   max-height: 100vh;
   overflow: hidden;
   margin-bottom: 0;
+
+  scrollbar-color: #666 transparent;
+  scrollbar-width: 5px;
 }
 
 a {
@@ -23,22 +26,42 @@ p {
   }
 }
 
+header {
+  padding-top: 70px;
+}
+
 .monogram {
   position: relative;
   top: 0;
   width: 60px;
   height: 60px;
-  margin: 70px auto 50px;
+  margin: 0 auto 50px;
   background-color: rgb(255, 241, 225);
   border-radius: 4px;
+  border: 3px solid transparent;
   // box-shadow: 0 0 500px 50px #efefef;
   box-shadow: 0 0 500px 50px #888;
   color: #666;
   cursor: pointer;
   transition: top 0.75s;
   transition: box-shadow 0.1  s;
+
+  &:focus {
+    outline: solid transparent;
+  }
+
+  &:focus-visible {
+    border-color: blue;
+  }
+  &:-moz-focusring {
+    border-color: blue;
+  }
+
   
   h1 {
+    display: inline-block;
+    width: 60px;
+    margin: 0;
     font-family: 'Cormorant', serif;
     font-weight: 500;
     font-size: 3rem;
@@ -79,6 +102,19 @@ p {
   
   p {
     cursor: pointer;
+
+    &:focus {
+      outline: solid transparent;
+    }
+
+    &:focus-visible {
+      outline: 2px solid blue;
+      background-color: #777;
+    }
+    &:-moz-focusring {
+      outline: 2px solid blue;
+      background-color: #777;
+    }
   }
 }
 
@@ -109,19 +145,27 @@ p {
   scroll-behavior: smooth;
 }
 
-// .fade-scroll {
-//   -webkit-mask-image: 
-//     linear-gradient(transparent, black 10px),
-//     linear-gradient(-90deg, black 400px, transparent 400px);
-//   mask-image: 
-//     linear-gradient(transparent, black 10px),
-//     linear-gradient(-90deg, black 400px, transparent 400px);
-// }
-
 main {
   position: relative;
   max-width: 600px;
   margin: auto;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 10px;
+  color: #888;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+  opacity: 1;
+  transition: opacity 0.5s;
+
+  a {
+    color: lightblue;
+  }
 }
 
 .tech {
@@ -196,15 +240,18 @@ main {
   opacity: 0;
   text-align: center;
   transition: all 0.25s ease-in;
-  margin-left: 40px;
-
+  
   .contact-section {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 20px;
     opacity: 0;
-    transition: all 0.5s;
+    transition: opacity 0.5s;
+    // below is not great for responsive
+    padding-left: 80px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   i {
@@ -229,6 +276,18 @@ main {
     background-color: lightpink;
     clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
     animation: indicator 2s infinite;
+  }
+
+  a {
+    &:focus {
+      outline: solid transparent;
+    }
+    &:focus-visible {
+      > div {
+        outline: 2px solid blue;
+        background-color: #666a;
+      }
+    }
   }
 }
 
@@ -274,7 +333,6 @@ main {
   justify-content: center;
   font-size: 3rem;
   margin-bottom: 20px;
-  // height: 5rem;
 
   > * {
     margin: 10px;
@@ -395,9 +453,6 @@ main {
 @keyframes spin {
   0% {
     transform: rotateZ(0deg);
-  }
-  50% {
-    
   }
   100% {
     transform: rotateZ(90deg);

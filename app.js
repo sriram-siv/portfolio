@@ -13,6 +13,7 @@ function init() {
   const projectSelectors = document.querySelectorAll('.project-selector')
   const projects = document.querySelectorAll('.project-show')
   const carouselHeader = document.querySelector('.carousel-header')
+  const footer = document.querySelector('footer')
 
   // Carousel settings, delay prevents multiple function calls
   let currentProject = 0
@@ -56,6 +57,8 @@ function init() {
         // Reveal title 0.6s
         setTimeout(() => {
           title.style.opacity = 1
+          footer.style.opacity = 1
+          footer.style.pointerEvents = 'all'
         }, 200)
       }, 300)
     }, 100)
@@ -77,6 +80,7 @@ function init() {
     contactLinks.forEach((link, i) => {
       setTimeout(() => link.style.opacity = 1, 300 + (i * 150))
     })
+    document.querySelectorAll('.contact a').forEach(link => link.setAttribute('tabindex', 0))
   }
 
   const loadProjects = () => {
@@ -91,7 +95,7 @@ function init() {
     }, titleShowing ? 700 : 200)
     resizeCarousel()
     
-
+    document.querySelectorAll('.project-links a').forEach(link => link.setAttribute('tabindex', 0))
   }
 
   const loadSection = e => {
@@ -107,6 +111,11 @@ function init() {
     // Hide title and activate scroll
     title.style.opacity = 0
     container.style.pointerEvents = 'all'
+    footer.style.opacity = 0
+    footer.style.pointerEvents = 'none'
+
+    document.querySelectorAll('.contact a').forEach(link => link.setAttribute('tabindex', -1))
+    document.querySelectorAll('.project-links a').forEach(link => link.setAttribute('tabindex', -1))
 
     setTimeout(() => {
       
@@ -240,6 +249,14 @@ function init() {
     if (diffX < -30 && Math.abs(diffY) < 30) changeProject(1)
   }
 
+  const activateElement = event => {
+    if (event.code  !== 'Space' && event.code !== 'Enter') return
+    const element = document.activeElement
+    if (element.classList.contains('monogram')) loadTitle()
+    if (element.classList.contains('nav-link')) loadSection({ target: element })
+
+  }
+
   window.addEventListener('mousemove', trackMouseWithGlow)
   monogram.addEventListener('click', loadTitle)
   navItems.forEach(item => item.addEventListener('click', loadSection))
@@ -273,6 +290,7 @@ function init() {
     icon.querySelector('p').style.color = getComputedStyle(image).color
   })
 
+  window.addEventListener('keydown', activateElement)
   
 }
 
