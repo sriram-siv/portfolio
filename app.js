@@ -287,7 +287,7 @@ function init() {
 
   document.querySelectorAll('.tech-icon').forEach(icon => {
     const image = icon.querySelector('i')
-    icon.querySelector('p').style.color = getComputedStyle(image).color
+    icon.querySelector('p').style.color = image ? getComputedStyle(image).color : 'eee'
   })
 
   window.addEventListener('keydown', activateElement)

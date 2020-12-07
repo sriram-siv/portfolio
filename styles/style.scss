@@ -197,6 +197,9 @@ footer {
     font-size: 0.8rem;
     margin: 0;
   }
+  .tech-icon img {
+    width: 4rem;
+  }
 }
 
 .about {
@@ -252,11 +255,16 @@ footer {
     padding-left: 80px;
     padding-top: 10px;
     padding-bottom: 10px;
+    
+    img {
+      width: 4rem;
+    }
   }
 
   i {
     font-size: 4rem;
   }
+
 
   p {
     width: 12rem;

@@ -185,6 +185,9 @@ footer a {
   font-size: 0.8rem;
   margin: 0;
 }
+.tech .tech-icon img {
+  width: 4rem;
+}
 
 .about {
   position: relative;
@@ -235,6 +238,9 @@ footer a {
   padding-left: 80px;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+.contact .contact-section img {
+  width: 4rem;
 }
 .contact i {
   font-size: 4rem;
